@@ -12,6 +12,7 @@ class PlatformMap extends StatefulWidget {
     this.gestureRecognizers = const <Factory<OneSequenceGestureRecognizer>>{},
     this.compassEnabled = true,
     this.mapType = MapType.normal,
+    this.colorScheme = MapColorScheme.system,
     this.minMaxZoomPreference = MinMaxZoomPreference.unbounded,
     this.rotateGesturesEnabled = true,
     this.scrollGesturesEnabled = true,
@@ -46,6 +47,9 @@ class PlatformMap extends StatefulWidget {
 
   /// Type of map tiles to be rendered.
   final MapType mapType;
+
+  /// Color scheme to be used in the [MapType.normal] on iOS, silently ignored on Android
+  final MapColorScheme colorScheme;
 
   /// Preferred bounds for the camera zoom level.
   ///
@@ -205,6 +209,7 @@ class _PlatformMapState extends State<PlatformMap> {
             widget.initialCameraPosition.appleMapsCameraPosition,
         compassEnabled: widget.compassEnabled,
         mapType: _getAppleMapType(),
+        colorScheme: _getAppleMapsScheme(),
         padding: widget.padding,
         annotations: Marker.toAppleMapsAnnotationSet(widget.markers),
         polylines: Polyline.toAppleMapsPolylines(widget.polylines),
@@ -291,5 +296,9 @@ class _PlatformMapState extends State<PlatformMap> {
       return googleMaps.MapType.hybrid;
     }
     return googleMaps.MapType.normal;
+  }
+
+  appleMaps.MapColorScheme _getAppleMapsScheme() {
+    return appleMaps.MapColorScheme.values[widget.colorScheme.index];
   }
 }

@@ -16,6 +16,13 @@ enum MapType {
   hybrid,
 }
 
+/// Map color scheme for [MapType.normal] on iOS
+enum MapColorScheme {
+  system,
+  light,
+  dark,
+}
+
 // Used with [PlatformMapOptions] to wrap min and max zoom. This allows
 // distinguishing between specifying unbounded zooming (null `minZoom` and
 // `maxZoom`) from not specifying anything (null `MinMaxZoomPreference`).
